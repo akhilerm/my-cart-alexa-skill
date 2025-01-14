@@ -4,6 +4,12 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
+const Todoist = require('@doist/todoist-api-typescript');
+require('dotenv').config();
+
+const apiKey = process.env.TODOIST_API_KEY
+// Shopping List project Id
+const shoppingListProjectId = process.env.SHOPPING_LIST_PROJECT_ID
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
@@ -19,20 +25,74 @@ const LaunchRequestHandler = {
     }
 };
 
-const HelloWorldIntentHandler = {
+const AddItemIntentHandler = {
     canHandle(handlerInput) {
-        return Alexa.getRequestType(handlerInput.requestEnvelope) === 'IntentRequest'
-            && Alexa.getIntentName(handlerInput.requestEnvelope) === 'HelloWorldIntent';
+        return (
+            Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+            Alexa.getIntentName(handlerInput.requestEnvelope) === "AddItemIntent"
+        );
     },
-    handle(handlerInput) {
-        const speakOutput = 'Hello World!';
+    async handle(handlerInput) {
+        const itemName = handlerInput.requestEnvelope.request.intent.slots.itemName.value;
+
+        let speakText;
+        /*if (attributes.hasOwnProperty(itemName)) {
+            speakText = `Item ${itemName} already present`;
+        } else {
+            attributes[itemName] = 0;
+            speakText = `Item ${itemName} added`;
+        }*/
+
+        await addItem(itemName)
+
+        speakText = `${itemName} added to shopping list`
 
         return handlerInput.responseBuilder
-            .speak(speakOutput)
-            //.reprompt('add a reprompt if you want to keep the session open for the user to respond')
+            .speak(speakText)
             .getResponse();
-    }
+    },
 };
+
+/*
+const ListItemsIntentHandler = {
+    canHandle(handlerInput) {
+        return (
+            Alexa.getRequestType(handlerInput.requestEnvelope) === "IntentRequest" &&
+            Alexa.getIntentName(handlerInput.requestEnvelope) === "ListItemsIntent"
+        );
+    },
+    async handle(handlerInput) {
+        const itemName = handlerInput.requestEnvelope.request.intent.slots.itemName.value;
+
+        let attributes = await db.getAllAttributes(handlerInput);
+
+        let speakText = "";
+
+        if (itemName) {
+            if (!attributes.hasOwnProperty(itemName)) {
+                speakText = `Item ${itemName} not present`;
+            } else {
+                speakText = `${itemName} has a count of ${attributes[itemName]}`
+            }
+        } else {
+            Object.keys(attributes).forEach((item) => {
+                speakText += `${item} has ${attributes[item]}. `;
+            })
+        }
+
+        return handlerInput.responseBuilder
+            .speak(speakText)
+            .getResponse();
+    },
+
+};
+*/
+
+const addItem = async (itemName) => {
+    api.addTask({ content: itemName, projectId: shoppingListProjectId })
+        .then((task) => console.log(task))
+        .catch((error) => console.log(error))
+}
 
 const HelpIntentHandler = {
     canHandle(handlerInput) {
