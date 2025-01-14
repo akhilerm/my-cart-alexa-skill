@@ -15,16 +15,21 @@
           "samples": []
         },
         {
-          "slots": [],
-          "name": "HelloWorldIntent",
+          "name": "AddItemIntent",
+          "slots": [
+            {
+              "name": "itemName",
+              "type": "AMAZON.SearchQuery"
+            }
+          ],
           "samples": [
-            "hello",
-            "how are you",
-            "say hi world",
-            "say hi",
-            "hi",
-            "say hello world",
-            "say hello"
+            "add {itemName}"
+          ]
+        },
+        {
+          "name": "ListItemsIntent",
+          "samples": [
+            "list"
           ]
         },
         {
@@ -37,7 +42,7 @@
         }
       ],
       "types": [],
-      "invocationName": "change me"
+      "invocationName": "my cart"
     }
   }
 }
