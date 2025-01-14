@@ -4,12 +4,13 @@
  * session persistence, api calls, and more.
  * */
 const Alexa = require('ask-sdk-core');
-const Todoist = require('@doist/todoist-api-typescript');
+const {TodoistApi} = require("@doist/todoist-api-typescript");
 require('dotenv').config();
 
 const apiKey = process.env.TODOIST_API_KEY
 // Shopping List project Id
 const shoppingListProjectId = process.env.SHOPPING_LIST_PROJECT_ID
+const api = new TodoistApi(apiKey)
 
 const LaunchRequestHandler = {
     canHandle(handlerInput) {
