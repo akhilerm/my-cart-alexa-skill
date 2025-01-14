@@ -37,59 +37,49 @@
       "isAvailableWorldwide": true,
       "locales": {
         "en-US": {
-          "description": "Sample Full Description",
+          "description": "Manage Todoist shopping list",
           "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
+            "Alexa open my cart"
           ],
           "keywords": [],
           "name": "MyCart",
-          "summary": "Sample Short Description"
+          "summary": "Manage Todoist shopping list"
         },
         "en-CA": {
-          "description": "Sample Full Description",
+          "description": "Manage Todoist shopping list",
           "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
+            "Alexa open my cart"
           ],
           "keywords": [],
           "name": "MyCart",
-          "summary": "Sample Short Description"
+          "summary": "Manage Todoist shopping list"
         },
         "en-IN": {
-          "description": "Sample Full Description",
+          "description": "Manage Todoist shopping list",
           "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
+            "Alexa open my cart"
           ],
           "keywords": [],
           "name": "MyCart",
-          "summary": "Sample Short Description"
+          "summary": "Manage Todoist shopping list"
         },
         "en-AU": {
-          "description": "Sample Full Description",
+          "description": "Manage Todoist shopping list",
           "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
+            "Alexa open my cart"
           ],
           "keywords": [],
           "name": "MyCart",
-          "summary": "Sample Short Description"
+          "summary": "Manage Todoist shopping list"
         },
         "en-GB": {
-          "description": "Sample Full Description",
+          "description": "Manage Todoist shopping list",
           "examplePhrases": [
-            "Alexa open hello world",
-            "hello",
-            "help"
+            "Alexa open my cart"
           ],
           "keywords": [],
           "name": "MyCart",
-          "summary": "Sample Short Description"
+          "summary": "Manage Todoist shopping list"
         }
       },
       "testingInstructions": "Sample Testing Instructions."
