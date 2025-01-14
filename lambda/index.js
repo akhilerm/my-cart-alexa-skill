@@ -37,16 +37,15 @@ const AddItemIntentHandler = {
         const itemName = handlerInput.requestEnvelope.request.intent.slots.itemName.value;
 
         let speakText;
-        /*if (attributes.hasOwnProperty(itemName)) {
-            speakText = `Item ${itemName} already present`;
+
+        let items = await listItem().catch((error) => console.log(error))
+        if (items.includes(itemName)) {
+            speakText = `You already have ${itemName} on shopping list`
         } else {
-            attributes[itemName] = 0;
-            speakText = `Item ${itemName} added`;
-        }*/
+            await addItem(itemName)
 
-        await addItem(itemName)
-
-        speakText = `${itemName} added to shopping list`
+            speakText = `${itemName} added to shopping list`
+        }
 
         return handlerInput.responseBuilder
             .speak(speakText)
@@ -54,7 +53,6 @@ const AddItemIntentHandler = {
     },
 };
 
-/*
 const ListItemsIntentHandler = {
     canHandle(handlerInput) {
         return (
@@ -63,23 +61,12 @@ const ListItemsIntentHandler = {
         );
     },
     async handle(handlerInput) {
-        const itemName = handlerInput.requestEnvelope.request.intent.slots.itemName.value;
-
-        let attributes = await db.getAllAttributes(handlerInput);
 
         let speakText = "";
 
-        if (itemName) {
-            if (!attributes.hasOwnProperty(itemName)) {
-                speakText = `Item ${itemName} not present`;
-            } else {
-                speakText = `${itemName} has a count of ${attributes[itemName]}`
-            }
-        } else {
-            Object.keys(attributes).forEach((item) => {
-                speakText += `${item} has ${attributes[item]}. `;
-            })
-        }
+        let items = await listItem().catch((error) => console.log(error))
+
+        speakText = `You have ${items.join()}`
 
         return handlerInput.responseBuilder
             .speak(speakText)
@@ -87,11 +74,18 @@ const ListItemsIntentHandler = {
     },
 
 };
-*/
 
 const addItem = async (itemName) => {
     api.addTask({ content: itemName, projectId: shoppingListProjectId })
         .then((task) => console.log(task))
+        .catch((error) => console.log(error))
+}
+
+const listItem = async () => {
+    return api.getTasks({
+        project_id: shoppingListProjectId
+    })
+        .then((tasks) => tasks.map(item => item.content))
         .catch((error) => console.log(error))
 }
 
@@ -206,6 +200,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     .addRequestHandlers(
         LaunchRequestHandler,
         AddItemIntentHandler,
+        ListItemsIntentHandler,
         HelpIntentHandler,
         CancelAndStopIntentHandler,
         FallbackIntentHandler,
