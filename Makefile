@@ -1,7 +1,7 @@
 .PHONY: deploy sync-locale
 deploy:
 	git checkout master
-	git merge dev
+	git merge --no-edit dev
 	git push origin master
 	git checkout dev
 
