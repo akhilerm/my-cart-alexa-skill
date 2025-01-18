@@ -17,7 +17,7 @@ const LaunchRequestHandler = {
         return Alexa.getRequestType(handlerInput.requestEnvelope) === 'LaunchRequest';
     },
     handle(handlerInput) {
-        const speakOutput = 'Welcome, you can say Hello or Help. Which would you like to try?';
+        const speakOutput = 'Welcome, you can say Add Milk, or List';
 
         return handlerInput.responseBuilder
             .speak(speakOutput)
